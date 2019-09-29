@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package main;
+
+import "envoy/api/v2/cds.proto";
+import "envoy/api/v2/rds.proto";
+
+message Clusters {
+    repeated envoy.api.v2.Cluster clusters = 1;
+}
+
+message Routes {
+    repeated envoy.api.v2.RouteConfiguration routes = 1;
+}

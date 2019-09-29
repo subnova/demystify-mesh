@@ -1,0 +1,19 @@
+---
+routes:
+- name: dynamic
+  virtual_hosts:
+    - name: ui
+      domains: ["ui:8080"]
+      routes:
+        - match: {prefix: "/"}
+          route: {cluster: ui}
+    - name: red
+      domains: ["red:8080"]
+      routes:
+        - match: {prefix: "/"}
+          route: {cluster: red}
+    - name: blue
+      domains: ["blue:8080"]
+      routes:
+        - match: {prefix: "/"}
+          route: {cluster: blue}

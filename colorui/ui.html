@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>Color UI</title>
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+        <style type="text/css" media="screen">
+            .base {
+                margin: 0;
+                padding: 0;
+                min-height: 100vh;
+                text-align: center;
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 600;
+                font-size: 36px;
+            }
+
+            .outer {
+                height: 50%;
+            }
+
+            .innerTop {
+                width: 50%;
+                height: 25%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -150%);
+            }
+
+            .innerBottom {
+                width: 50%;
+                height: 25%;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, 50%);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="base">
+            {{if .Color1}}
+                <div class="outer" style="background-color: {{.Color1.Color}};">
+                    {{.Color1.Title}}
+                    {{if .Color1.External}}
+                        <div class="innerTop" style="background-color: {{.Color1.External.Color}};">
+                            {{.Color1.External.Title}}
+                         </div>
+                    {{end}}
+                </div>
+            {{end}}
+            {{if .Color2}}
+            <div class="outer" style="background-color: {{.Color2.Color}};">
+                {{.Color2.Title}}
+                {{if .Color2.External}}
+                    <div class="innerBottom" style="background-color: {{.Color2.External.Color}};">
+                        {{.Color2.External.Title}}
+                    </div>
+                {{end}}
+            </div>
+            {{end}}
+        </div>
+    </body>
+</html>
