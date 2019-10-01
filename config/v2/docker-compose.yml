@@ -3,10 +3,9 @@ services:
   red1:
     build:
       context: ../../colorapp
+      dockerfile: Dockerfile.v2
     command: ['Red 1','red', 'http://blue:8080']
     privileged: true
-    ports:
-      - "18080:8080"
     volumes:
       - "../logs/red1:/var/log/envoy"
       - "./:/etc/envoy:ro"
@@ -15,13 +14,13 @@ services:
       - "red:127.0.0.1"
     networks:
       - color
+
   red2:
     build:
       context: ../../colorapp
+      dockerfile: Dockerfile.v2
     command: ['Red 2','red']
     privileged: true
-    ports:
-      - "28080:8080"
     volumes:
       - "../logs/red2:/var/log/envoy"
       - "./:/etc/envoy:ro"
@@ -34,10 +33,9 @@ services:
   blue1:
     build:
       context: ../../colorapp
+      dockerfile: Dockerfile.v2
     command: ['Blue 1','blue', 'http://red:8080']
     privileged: true
-    ports:
-      - "18081:8080"
     volumes:
       - "../logs/blue1:/var/log/envoy"
       - "./:/etc/envoy:ro"
@@ -46,13 +44,13 @@ services:
       - "red:127.0.0.1"
     networks:
       - color
+
   blue2:
     build:
       context: ../../colorapp
+      dockerfile: Dockerfile.v2
     command: ['Blue 2','blue']
     privileged: true
-    ports:
-      - "28081:8080"
     volumes:
       - "../logs/blue2:/var/log/envoy"
       - "./:/etc/envoy:ro"
@@ -65,6 +63,7 @@ services:
   ui:
     build:
       context: ../../colorui
+      dockerfile: Dockerfile.v2
     command: ['http://red:8080', 'http://blue:8080']
     privileged: true
     ports:

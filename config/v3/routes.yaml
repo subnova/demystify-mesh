@@ -8,12 +8,12 @@ routes:
         - match: {prefix: "/"}
           route: {cluster: ui}
     - name: red
-      domains: ["red:8080"]
+      domains: ["red.srv:8080"]
       routes:
         - match: {prefix: "/"}
           route: {cluster: red}
     - name: blue
-      domains: ["blue:8080"]
+      domains: ["blue.srv:8080"]
       routes:
         - match: {prefix: "/"}
           route: {cluster: blue}

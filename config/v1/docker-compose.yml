@@ -3,8 +3,8 @@ services:
   red1:
     build:
       context: ../../colorapp
+      dockerfile: Dockerfile.v1
     command: ['Red 1','red', 'http://blue2:8080']
-    privileged: true
     ports:
       - "18080:8080"
     volumes:
@@ -15,8 +15,8 @@ services:
   red2:
     build:
       context: ../../colorapp
+      dockerfile: Dockerfile.v1
     command: ['Red 2','red']
-    privileged: true
     ports:
       - "28080:8080"
     volumes:
@@ -28,8 +28,8 @@ services:
   blue1:
     build:
       context: ../../colorapp
+      dockerfile: Dockerfile.v1
     command: ['Blue 1','blue', 'http://red2:8080']
-    privileged: true
     ports:
       - "18081:8080"
     volumes:
@@ -40,8 +40,8 @@ services:
   blue2:
     build:
       context: ../../colorapp
+      dockerfile: Dockerfile.v1
     command: ['Blue 2','blue']
-    privileged: true
     ports:
       - "28081:8080"
     volumes:
@@ -53,8 +53,8 @@ services:
   ui:
     build:
       context: ../../colorui
+      dockerfile: Dockerfile.v1
     command: ['http://red1:8080', 'http://blue1:8080']
-    privileged: true
     ports:
       - "8080:8080"
     volumes:

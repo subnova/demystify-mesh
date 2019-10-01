@@ -36,7 +36,11 @@ func ColorApp(c echo.Context) error {
 	var externalColor *Color
 
 	if external != nil && *external != "" {
-		externalColor, _ = readColor(*external)
+		var err error
+		externalColor, err = readColor(*external)
+		if err != nil {
+			fmt.Printf("unable to read external color: %v\n", err)
+		}
 	}
 
 	return c.JSON(200, Color{*title, *color, externalColor})

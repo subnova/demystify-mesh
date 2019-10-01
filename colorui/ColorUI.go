@@ -43,8 +43,14 @@ type RenderInfo struct {
 }
 
 func ColorUI(c echo.Context) error {
-	color1, _ := readColor(*remote1)
-	color2, _ := readColor(*remote2)
+	color1, err := readColor(*remote1)
+	if err != nil {
+		fmt.Printf("unable to read color1: %v\n", err)
+	}
+	color2, err := readColor(*remote2)
+	if err != nil {
+		fmt.Printf("unable to read color2: %v\n", err)
+	}
 
 	return c.Render(200, "ui.html", RenderInfo{
 		color1,
