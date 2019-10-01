@@ -20,7 +20,7 @@ static_resources:
                   name: static
                   virtual_hosts:
                     - name: ui
-                      domains: ["ui:8080"]
+                      domains: ["localhost:8080"]
                       routes:
                         - match: {prefix: "/"}
                           route: {cluster: ui}
