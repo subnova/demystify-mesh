@@ -1,0 +1,25 @@
+---
+routes:
+- name: dynamic
+  virtual_hosts:
+    - name: ui
+      domains: ["localhost:8080"]
+      routes:
+        - match: {prefix: "/"}
+          route: {cluster: ui}
+    - name: red
+      domains: ["red.srv:8080"]
+      routes:
+        - match: {prefix: "/"}
+          route: {cluster: red}
+    - name: blue
+      domains: ["blue.srv:8080"]
+      routes:
+        - match: {prefix: "/"}
+          route:
+            weighted_clusters:
+              clusters:
+              - name: blue
+                weight: 90
+              - name: yellow
+                weight: 10

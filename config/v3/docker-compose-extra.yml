@@ -1,0 +1,28 @@
+version: '3'
+services:
+  yellow1:
+    build:
+      context: ../../colorapp
+      dockerfile: Dockerfile.v3
+    command: ['Yellow 1', 'yellow', 'http://red.srv:8080']
+    privileged: true
+    volumes:
+      - "../logs/yellow1:/var/log/envoy"
+      - "./:/etc/envoy:ro"
+    networks:
+      - color
+
+  yellow2:
+    build:
+      context: ../../colorapp
+      dockerfile: Dockerfile.v3
+    command: ['Yellow 2', 'yellow']
+    privileged: true
+    volumes:
+      - "../logs/yellow2:/var/log/envoy"
+      - "./:/etc/envoy:ro"
+    networks:
+      - color
+
+networks:
+  color:

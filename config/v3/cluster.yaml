@@ -1,51 +1,69 @@
 ---
 clusters:
-- name: ui
-  connect_timeout: 0.25s
-  type: STRICT_DNS
-  lb_policy: ROUND_ROBIN
-  load_assignment:
-    cluster_name: ui
-    endpoints:
-      - lb_endpoints:
-          - endpoint:
-              address:
-                socket_address:
-                  address: ui
-                  port_value: 8080
-- name: blue
-  connect_timeout: 0.25s
-  type: STRICT_DNS
-  lb_policy: ROUND_ROBIN
-  load_assignment:
-    cluster_name: blue
-    endpoints:
-      - lb_endpoints:
-          - endpoint:
-              address:
-                socket_address:
-                  address: blue1
-                  port_value: 8080
-          - endpoint:
-              address:
-                socket_address:
-                  address: blue2
-                  port_value: 8080
-- name: red
-  connect_timeout: 0.25s
-  type: STRICT_DNS
-  lb_policy: ROUND_ROBIN
-  load_assignment:
-    cluster_name: red
-    endpoints:
-      - lb_endpoints:
-          - endpoint:
-              address:
-                socket_address:
-                  address: red1
-                  port_value: 8080
-          - endpoint:
-              address:
-                socket_address:
-                  address: red2
-                  port_value: 8080
+  - name: ui
+    connect_timeout: 0.25s
+    type: STRICT_DNS
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: ui
+      endpoints:
+        - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: ui
+                    port_value: 8080
+  - name: blue
+    connect_timeout: 0.25s
+    type: STRICT_DNS
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: blue
+      endpoints:
+        - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: blue1
+                    port_value: 8080
+            - endpoint:
+                address:
+                  socket_address:
+                    address: blue2
+                    port_value: 8080
+  - name: red
+    connect_timeout: 0.25s
+    type: STRICT_DNS
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: red
+      endpoints:
+        - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: red1
+                    port_value: 8080
+            - endpoint:
+                address:
+                  socket_address:
+                    address: red2
+                    port_value: 8080
+  - name: yellow
+    connect_timeout: 0.25s
+    type: STRICT_DNS
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: yellow
+      endpoints:
+        - lb_endpoints:
+            - endpoint:
+                address:
+                  socket_address:
+                    address: yellow1
+                    port_value: 8080
+            - endpoint:
+                address:
+                  socket_address:
+                    address: yellow2
+                    port_value: 8080
