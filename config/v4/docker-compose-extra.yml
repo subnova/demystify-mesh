@@ -3,7 +3,7 @@ services:
   yellow1:
     build:
       context: ../../colorapp
-      dockerfile: Dockerfile.v3
+      dockerfile: Dockerfile.v4
     command: ['Yellow 1', 'yellow', 'http://red.srv:8080']
     privileged: true
     volumes:
@@ -15,7 +15,7 @@ services:
   yellow2:
     build:
       context: ../../colorapp
-      dockerfile: Dockerfile.v3
+      dockerfile: Dockerfile.v4
     command: ['Yellow 2', 'yellow']
     privileged: true
     volumes:

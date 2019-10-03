@@ -3,68 +3,56 @@ services:
   red1:
     build:
       context: ../../colorapp
-      dockerfile: Dockerfile.v3
-    command: ['Red 1','red', 'http://blue:8080']
+      dockerfile: Dockerfile.v4
+    command: ['Red 1','red', 'http://blue.srv:8080']
     privileged: true
     volumes:
       - "../logs/red1:/var/log/envoy"
       - "./:/etc/envoy:ro"
-    extra_hosts:
-      - "blue:127.0.0.1"
-      - "red:127.0.0.1"
     networks:
       - color
 
   red2:
     build:
       context: ../../colorapp
-      dockerfile: Dockerfile.v3
+      dockerfile: Dockerfile.v4
     command: ['Red 2','red']
     privileged: true
     volumes:
       - "../logs/red2:/var/log/envoy"
       - "./:/etc/envoy:ro"
-    extra_hosts:
-      - "blue:127.0.0.1"
-      - "red:127.0.0.1"
     networks:
       - color
 
   blue1:
     build:
       context: ../../colorapp
-      dockerfile: Dockerfile.v3
-    command: ['Blue 1','blue', 'http://red:8080']
+      dockerfile: Dockerfile.v4
+    command: ['Blue 1','blue', 'http://red.srv:8080']
     privileged: true
     volumes:
       - "../logs/blue1:/var/log/envoy"
       - "./:/etc/envoy:ro"
-    extra_hosts:
-      - "blue:127.0.0.1"
-      - "red:127.0.0.1"
     networks:
       - color
 
   blue2:
     build:
       context: ../../colorapp
-      dockerfile: Dockerfile.v3
+      dockerfile: Dockerfile.v4
     command: ['Blue 2','blue']
     privileged: true
     volumes:
       - "../logs/blue2:/var/log/envoy"
       - "./:/etc/envoy:ro"
-    extra_hosts:
-      - "blue:127.0.0.1"
-      - "red:127.0.0.1"
     networks:
       - color
 
   ui:
     build:
       context: ../../colorui
-      dockerfile: Dockerfile.v3
-    command: ['http://red:8080', 'http://blue:8080']
+      dockerfile: Dockerfile.v4
+    command: ['http://red.srv:8080', 'http://blue.srv:8080']
     privileged: true
     ports:
       - "8080:8080"
@@ -72,9 +60,16 @@ services:
     volumes:
       - "../logs/ui:/var/log/envoy"
       - "./:/etc/envoy:ro"
-    extra_hosts:
-      - "blue:127.0.0.1"
-      - "red:127.0.0.1"
+    networks:
+      - color
+
+  control:
+    build:
+      context: ../../control
+      dockerfile: Dockerfile
+    command: ['/etc/envoy/cluster.yaml', '/etc/envoy/routes.yaml']
+    volumes:
+      - "./:/etc/envoy:ro"
     networks:
       - color
 

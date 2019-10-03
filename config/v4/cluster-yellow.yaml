@@ -54,7 +54,7 @@ clusters:
     type: STRICT_DNS
     lb_policy: ROUND_ROBIN
     load_assignment:
-      cluster_name: yellow
+      cluster_name: red
       endpoints:
         - lb_endpoints:
             - endpoint:

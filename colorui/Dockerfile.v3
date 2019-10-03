@@ -8,7 +8,7 @@ RUN go build -o /go/bin/colorui
 FROM envoyproxy/envoy-alpine:v1.11.1 as envoy
 
 FROM frolvlad/alpine-glibc
-RUN apk update && apk add --no-cache ca-certificates su-exec iptables dnsmasq
+RUN apk update && apk add --no-cache ca-certificates su-exec iptables
 
 RUN addgroup -g 1000 app && adduser -D -u 1000 -G app app
 RUN addgroup -g 1337 envoy && adduser -D -u 1337 -G envoy envoy

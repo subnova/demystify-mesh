@@ -16,14 +16,24 @@ static_resources:
                 "@type": type.googleapis.com/envoy.config.filter.network.http_connection_manager.v2.HttpConnectionManager
                 stat_prefix: ingress_http
                 codec_type: AUTO
-                rds:
-                  route_config_name: dynamic
-                  config_source:
-                    api_config_source:
-                      api_type: GRPC
-                      grpc_services:
-                        envoy_grpc:
-                          cluster_name: control
+                route_config:
+                  name: static
+                  virtual_hosts:
+                    - name: ui
+                      domains: ["localhost:8080"]
+                      routes:
+                        - match: {prefix: "/"}
+                          route: {cluster: ui}
+                    - name: red
+                      domains: ["red:8080"]
+                      routes:
+                        - match: {prefix: "/"}
+                          route: {cluster: red}
+                    - name: blue
+                      domains: ["blue:8080"]
+                      routes:
+                        - match: {prefix: "/"}
+                          route: {cluster: blue}
                 http_filters:
                   - name: envoy.router
                 access_log:
@@ -31,26 +41,52 @@ static_resources:
                     config:
                       path: /var/log/envoy/access.log
   clusters:
-    - name: control
+    - name: ui
       connect_timeout: 0.25s
-      http2_protocol_options: {}
       type: STRICT_DNS
       lb_policy: ROUND_ROBIN
       load_assignment:
-        cluster_name: control
+        cluster_name: ui
         endpoints:
           - lb_endpoints:
               - endpoint:
                   address:
-                    socket_address: {address: control, port_value: 8080}
-
-dynamic_resources:
-  cds_config:
-    api_config_source:
-      api_type: GRPC
-      grpc_services:
-        envoy_grpc:
-          cluster_name: control
-
-node:
-  cluster: color
+                    socket_address:
+                      address: ui
+                      port_value: 8080
+    - name: red
+      connect_timeout: 0.25s
+      type: STRICT_DNS
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: red
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: red1
+                      port_value: 8080
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: red2
+                      port_value: 8080
+    - name: blue
+      connect_timeout: 0.25s
+      type: STRICT_DNS
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: blue
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: blue1
+                      port_value: 8080
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: blue2
+                      port_value: 8080
